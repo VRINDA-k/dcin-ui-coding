@@ -1,0 +1,5 @@
+{
+  "jest.jestCommandLine": "npm test --",
+  "typescript.preferences.includePackageJsonAutoImports": "auto",
+  "typescript.enablePromptUseWorkspaceTsconfig": true
+}

@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/spec",
+    "rootDir": "./src",
+    "module": "ES2022",
+    "moduleResolution": "bundler",
+    "types": ["jest", "node"],
+    "isolatedModules": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true
+  },
+  "include": ["src/**/*.spec.ts", "src/test-utilities/**/*.ts"]
+}

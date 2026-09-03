@@ -44,4 +44,23 @@ module.exports = defineConfig([
     rules: {},
   },
   eslintConfigPrettier,
+  {
+    files: ['**/*.spec.ts', 'src/test-utilities/**/*.ts'],
+    languageOptions: {
+      globals: {
+        afterAll: 'readonly',
+        afterEach: 'readonly',
+        beforeAll: 'readonly',
+        beforeEach: 'readonly',
+        describe: 'readonly',
+        expect: 'readonly',
+        it: 'readonly',
+        jest: 'readonly',
+      },
+    },
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-non-null-assertion': 'off',
+    },
+  },
 ]);
