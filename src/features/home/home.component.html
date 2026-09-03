@@ -1,0 +1,88 @@
+<section class="home">
+  <h2>Welcome to Session #1: Rendering a list of items</h2>
+
+  <p>
+    Welcome! This is a take-homd coding challenge that recreates a small product catalog. It is
+    designed to test your Angular skills, including:
+  </p>
+  <ul>
+    <li>Building components to match a UX Design</li>
+    <li>Ensuring responsiveness website</li>
+    <li>Standalone components (Angular 21)</li>
+    <li>TypeScript and typing</li>
+    <li>Angular routing</li>
+    <li>Async data handling with `HttpClient`</li>
+  </ul>
+
+  <p>
+    You will work with a small app that displays a list of items and their details. Your task is to
+    extend the app with filtering and UI improvements.
+  </p>
+
+  <h4>Things to implement:</h4>
+  <ul>
+    <li>Update "items" view to load the items with the items.json file in /assets.</li>
+    <li>Implement filtering in the items listing</li>
+    <li>Click an item in the items listing will take you do the item-detail page.</li>
+    <li>Finish the item.service.ts file by implementing the stub methods.</li>
+    <li></li>
+  </ul>
+
+  <div class="cta">
+    <p>
+      Navigate to the <a id="home-items-inline-link" routerLink="/items">Items</a> page to see the
+      product list.
+    </p>
+    <a id="home-view-items-link" routerLink="/items" class="btn">View Items</a>
+  </div>
+
+  <hr />
+
+  <h3>UI Inspiration</h3>
+  <p>To give you some inspiration for the UI, here are two examples:</p>
+  <p>Click on a preview image to see it full size.</p>
+
+  <div class="inspiration-images">
+    <div class="image-card">
+      <h4>Item Listing Page</h4>
+      <div class="image-wrapper">
+        <button
+          type="button"
+          class="image-preview-btn"
+          aria-label="View full size item listing page preview"
+          (click)="openFullSize('assets/images/readme/item-list.png')"
+        >
+          <img src="assets/images/readme/item-list.png" alt="" />
+        </button>
+      </div>
+    </div>
+
+    <div class="image-card">
+      <h4>Item Detail Page</h4>
+      <div class="image-wrapper">
+        <button
+          type="button"
+          class="image-preview-btn"
+          aria-label="View full size item detail page preview"
+          (click)="openFullSize('assets/images/readme/item-detail.png')"
+        >
+          <img src="assets/images/readme/item-detail.png" alt="" />
+        </button>
+      </div>
+    </div>
+  </div>
+
+  @if (fullSizeImage) {
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Full size image preview">
+      <img [src]="fullSizeImage" alt="Full size preview" class="full-size-image" />
+      <button
+        type="button"
+        class="modal__close"
+        aria-label="Close preview"
+        (click)="closeFullSize(); $event.stopPropagation()"
+      >
+        Close
+      </button>
+    </div>
+  }
+</section>

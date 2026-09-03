@@ -1,0 +1,49 @@
+<app-item-filter-bar
+  [nameFilter]="nameFilter()"
+  (nameFilterChange)="nameFilter.set($event)"
+  [inStockOnly]="inStockOnly()"
+  (inStockOnlyChange)="inStockOnly.set($event)"
+/>
+
+@if (loadingService.isLoading()) {
+  <ng-container *ngTemplateOutlet="loadingState" />
+} @else if (itemService.loadError()) {
+  <ng-container *ngTemplateOutlet="errorState" />
+} @else if (filteredItems().length === 0) {
+  <ng-container *ngTemplateOutlet="emptyState" />
+} @else {
+  <ng-container *ngTemplateOutlet="itemsGrid" />
+}
+
+<ng-template #loadingState>
+  <app-loader variant="skeleton" [skeletonCount]="8" ariaLabel="Loading products" />
+</ng-template>
+
+<ng-template #errorState>
+  <app-empty-state
+    title="Unable to load products"
+    description="Something went wrong while fetching products. Please refresh the page and try again."
+  />
+</ng-template>
+
+<ng-template #emptyState>
+  <app-empty-state
+    title="No items found"
+    [description]="
+      hasActiveFilters()
+        ? 'No products match your current search or filter. Try different keywords or clear your filters.'
+        : 'There are no products available right now. Please check back later.'
+    "
+    [showAction]="hasActiveFilters()"
+    actionLabel="Clear filters"
+    (action)="clearFilters()"
+  />
+</ng-template>
+
+<ng-template #itemsGrid>
+  <div class="items-page__grid" role="list" aria-labelledby="products-heading">
+    @for (item of filteredItems(); track item.id) {
+      <app-item-card [item]="item" />
+    }
+  </div>
+</ng-template>

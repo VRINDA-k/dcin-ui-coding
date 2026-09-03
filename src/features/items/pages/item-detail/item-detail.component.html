@@ -1,0 +1,93 @@
+@if (loadingService.isLoading()) {
+  <ng-container *ngTemplateOutlet="loadingState" />
+} @else if (itemService.loadError()) {
+  <ng-container *ngTemplateOutlet="errorState" />
+} @else if (item(); as i) {
+  <ng-container *ngTemplateOutlet="detailContent; context: { $implicit: i }" />
+} @else {
+  <ng-container *ngTemplateOutlet="notFoundState" />
+}
+
+<ng-template #loadingState>
+  <app-loader variant="detail-skeleton" ariaLabel="Loading item details" />
+</ng-template>
+
+<ng-template #errorState>
+  <app-empty-state
+    title="Unable to load item"
+    description="Something went wrong while fetching product details. Please refresh the page and try again."
+    [showAction]="true"
+    actionLabel="Back to Items"
+    (action)="navigateToItems()"
+  />
+</ng-template>
+
+<ng-template #notFoundState>
+  <app-empty-state
+    title="Item not found"
+    description="Sorry, we couldn't find the item you're looking for. It may have been removed or the link is incorrect."
+    [showAction]="true"
+    actionLabel="Back to Items"
+    (action)="navigateToItems()"
+  />
+</ng-template>
+
+<ng-template #detailContent let-i>
+  <div class="item-detail__card">
+    <nav class="item-detail__breadcrumb" aria-label="Breadcrumb">
+      <a id="item-detail-breadcrumb-home" routerLink="/">Home</a>
+      <span class="item-detail__breadcrumb-sep" aria-hidden="true">&gt;</span>
+      <a
+        id="item-detail-breadcrumb-category"
+        [routerLink]="['/items']"
+        [queryParams]="{ category: i.category }"
+      >
+        {{ i.category }}
+      </a>
+      <span class="item-detail__breadcrumb-sep" aria-hidden="true">&gt;</span>
+      <span id="item-detail-breadcrumb-current" aria-current="page">{{ i.name }}</span>
+    </nav>
+
+    <div class="item-detail__layout">
+      <div class="item-detail__image-wrap">
+        <img class="item-detail__image" [src]="i.image" [alt]="i.name" />
+      </div>
+
+      <div class="item-detail__info">
+        <h1 id="item-detail-name" class="item-detail__name">{{ i.name }}</h1>
+        <p class="item-detail__price">{{ i.price | currency }}</p>
+        <p class="item-detail__description">{{ i.description }}</p>
+
+        <app-stock-badge [inStock]="i.inStock" [stockCount]="i.stockCount" layout="inline" />
+
+        <div class="item-detail__actions">
+          <app-quantity-selector
+            [max]="i.stockCount"
+            [disabled]="!i.inStock"
+            [quantity]="quantity()"
+            (quantityChange)="quantity.set($event)"
+          />
+
+          <button
+            id="item-detail-add-to-cart"
+            type="button"
+            class="item-detail__btn btn-primary btn-primary--block"
+            [disabled]="!i.inStock"
+          >
+            <app-icon name="shopping-cart" class="item-detail__btn-icon" />
+            {{ i.inStock ? 'Add to Cart' : 'Out of Stock' }}
+          </button>
+        </div>
+
+        <section class="item-detail__details" aria-labelledby="item-detail-details-title">
+          <h2 id="item-detail-details-title" class="item-detail__details-title">Product Details</h2>
+          <ul class="item-detail__details-list">
+            @for (detail of i.details; track detail) {
+              <li>{{ detail }}</li>
+            }
+          </ul>
+        </section>
+      </div>
+    </div>
+  </div>
+</ng-template>

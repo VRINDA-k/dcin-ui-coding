@@ -1,0 +1,13 @@
+@import '../../variables/variables';
+
+@mixin break-to-tablet {
+  @media (min-width: $break-to-tablet) {
+    @content;
+  }
+}
+
+@mixin break-to-desktop {
+  @media (min-width: $break-to-desktop) {
+    @content;
+  }
+}

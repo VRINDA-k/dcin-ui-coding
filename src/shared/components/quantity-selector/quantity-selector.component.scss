@@ -1,0 +1,54 @@
+@import 'variables';
+
+.qty-selector {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid $color-border;
+  border-radius: $btn-radius;
+  overflow: hidden;
+  background: $color-surface;
+  align-self: flex-start;
+
+  &--disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}
+
+.qty-selector__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: none;
+  background: #f8f9fb;
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: $color-text;
+  cursor: pointer;
+  transition: background 0.15s ease;
+
+  &:hover:not(:disabled) {
+    background: #eef1f5;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    color: $color-text-light;
+  }
+}
+
+.qty-selector__value {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 3rem;
+  height: 2.75rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: $color-text;
+  border-left: 1px solid $color-border;
+  border-right: 1px solid $color-border;
+  background: $color-surface;
+}

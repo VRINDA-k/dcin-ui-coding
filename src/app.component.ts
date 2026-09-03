@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
-    selector: 'app-root',
-    imports: [RouterOutlet, RouterLinkActive, RouterLink],
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss']
+  selector: 'app-root',
+  imports: [RouterOutlet, RouterLinkActive, RouterLink],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-    title = 'DCC Coding Sessions';
+  title = 'DCC Coding Sessions';
 }

@@ -1,12 +1,16 @@
-@import "mixins";
+@import 'mixins';
+@import 'variables';
 
 .app-header {
+  position: sticky;
+  top: 0;
+  z-index: $z-index-header;
   display: flex;
   flex-direction: column;
   background-color: #fff;
   padding: 1rem 2rem;
   gap: 16px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 
   @include break-to-tablet {
     flex-direction: row;
@@ -16,10 +20,11 @@
 
   .logo {
     svg {
-      fill: #1E3A8A;
+      fill: #1e3a8a;
     }
 
     h1 {
+      margin: 0;
       font-weight: 500;
       font-size: 1.3rem;
       color: #222;
@@ -68,5 +73,6 @@ main {
 
   @include break-to-desktop {
     max-width: 1240px;
+    margin: 0 auto;
   }
 }

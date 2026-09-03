@@ -1,0 +1,53 @@
+@import 'variables';
+@import 'catalog';
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 3.5rem 2rem;
+  background: $color-surface;
+  border-radius: 16px;
+  border: 1px solid $color-border;
+  box-shadow: $card-shadow;
+}
+
+.empty-state__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.5rem;
+  height: 4.5rem;
+  margin-bottom: 1.25rem;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #f8f9fb 0%, #eef1f5 100%);
+  color: $color-text-light;
+
+  app-icon {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+}
+
+.empty-state__title {
+  margin: 0 0 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: $color-text;
+  letter-spacing: -0.02em;
+}
+
+.empty-state__description {
+  margin: 0 0 1.5rem;
+  max-width: 22rem;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: $color-text-muted;
+}
+
+.empty-state__action {
+  padding: 0.625rem 1.25rem;
+  font-size: 0.875rem;
+}

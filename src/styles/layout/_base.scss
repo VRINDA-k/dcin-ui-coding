@@ -1,0 +1,40 @@
+@import '../variables/variables';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: clip;
+}
+
+body {
+  font-family: $primary-font;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  background-color: $color-background;
+  color: $color-text;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+
+  &:hover {
+    color: $color-primary;
+  }
+}
+
+:root {
+  --app-header-height: #{$app-header-height-mobile};
+
+  @media (min-width: $break-to-tablet) {
+    --app-header-height: #{$app-header-height-desktop};
+  }
+}

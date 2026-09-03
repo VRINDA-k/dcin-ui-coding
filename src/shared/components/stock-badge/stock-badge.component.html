@@ -1,0 +1,14 @@
+<div
+  class="stock-badge"
+  [class.stock-badge--in]="inStock()"
+  [class.stock-badge--out]="!inStock()"
+  [class.stock-badge--inline]="layout() === 'inline'"
+>
+  <span class="stock-badge__pill">
+    <app-icon [name]="inStock() ? 'stock-in' : 'stock-out'" class="stock-badge__icon" />
+    {{ inStock() ? 'In Stock' : 'Out of Stock' }}
+  </span>
+  @if (showCount() && inStock()) {
+    <span class="stock-badge__count">{{ stockCount() }} left in stock</span>
+  }
+</div>

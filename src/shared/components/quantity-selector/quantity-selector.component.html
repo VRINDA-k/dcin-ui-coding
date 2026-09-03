@@ -1,0 +1,32 @@
+<div
+  class="qty-selector"
+  role="group"
+  aria-label="Quantity"
+  [class.qty-selector--disabled]="disabled()"
+>
+  <button
+    [id]="decreaseButtonId"
+    type="button"
+    class="qty-selector__btn"
+    [disabled]="disabled() || quantity() <= 1"
+    (click)="decrement()"
+    aria-label="Decrease quantity"
+  >
+    −
+  </button>
+
+  <span [id]="valueId" class="qty-selector__value" aria-live="polite">
+    {{ quantity() }}
+  </span>
+
+  <button
+    [id]="increaseButtonId"
+    type="button"
+    class="qty-selector__btn"
+    [disabled]="disabled() || quantity() >= max()"
+    (click)="increment()"
+    aria-label="Increase quantity"
+  >
+    +
+  </button>
+</div>

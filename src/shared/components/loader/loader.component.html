@@ -1,0 +1,40 @@
+<div class="loader" role="status" [attr.aria-label]="ariaLabel()">
+  @if (variant() === 'skeleton') {
+    <div class="loader__skeleton-grid">
+      @for (i of skeletonItems.slice(0, skeletonCount()); track i) {
+        <div class="loader__skeleton-card"></div>
+      }
+    </div>
+  } @else if (variant() === 'detail-skeleton') {
+    <div class="loader__detail-skeleton">
+      <div class="loader__detail-breadcrumb"></div>
+      <div class="loader__detail-layout">
+        <div class="loader__detail-image"></div>
+        <div class="loader__detail-info">
+          <div class="loader__detail-line loader__detail-line--title"></div>
+          <div class="loader__detail-line loader__detail-line--price"></div>
+          <div class="loader__detail-line loader__detail-line--desc"></div>
+          <div
+            class="loader__detail-line loader__detail-line--desc loader__detail-line--short"
+          ></div>
+          <div class="loader__detail-badge"></div>
+          <div class="loader__detail-actions">
+            <div class="loader__detail-quantity"></div>
+            <div class="loader__detail-button"></div>
+          </div>
+          <div class="loader__detail-section">
+            <div class="loader__detail-line loader__detail-line--section-title"></div>
+            @for (i of [1, 2, 3, 4]; track i) {
+              <div class="loader__detail-line loader__detail-line--bullet"></div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  } @else {
+    <div class="loader__spinner-wrap">
+      <div class="loader__spinner" aria-hidden="true"></div>
+      <p class="loader__message">{{ message() }}</p>
+    </div>
+  }
+</div>

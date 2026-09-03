@@ -1,0 +1,40 @@
+<div class="filter-bar">
+  <h2 class="filter-bar__title">Products</h2>
+
+  <div class="filter-bar__actions">
+    <div class="filter-bar__search">
+      <app-icon name="search" class="filter-bar__search-icon" />
+      <input
+        id="name-filter"
+        class="filter-bar__input"
+        [class.filter-bar__input--has-clear]="nameFilter().length > 0"
+        type="text"
+        placeholder="Filter by name"
+        aria-label="Filter by name"
+        [ngModel]="nameFilter()"
+        (ngModelChange)="nameFilter.set($event)"
+      />
+      @if (nameFilter().length) {
+        <button
+          id="name-filter-clear"
+          type="button"
+          class="filter-bar__clear"
+          aria-label="Clear search"
+          (click)="clearSearch()"
+        >
+          <app-icon name="clear" class="filter-bar__clear-icon" />
+        </button>
+      }
+    </div>
+
+    <label class="filter-bar__stock" for="in-stock-only-filter">
+      <input
+        id="in-stock-only-filter"
+        type="checkbox"
+        [ngModel]="inStockOnly()"
+        (ngModelChange)="inStockOnly.set($event)"
+      />
+      In-stock only
+    </label>
+  </div>
+</div>

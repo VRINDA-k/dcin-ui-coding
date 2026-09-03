@@ -1,0 +1,19 @@
+<div class="empty-state" role="status" [attr.aria-labelledby]="titleId">
+  <div class="empty-state__icon" aria-hidden="true">
+    <app-icon name="empty-box" />
+  </div>
+
+  <h3 class="empty-state__title" [id]="titleId">{{ title() }}</h3>
+  <p class="empty-state__description">{{ description() }}</p>
+
+  @if (showAction()) {
+    <button
+      [id]="actionButtonId"
+      type="button"
+      class="empty-state__action btn-primary"
+      (click)="action.emit()"
+    >
+      {{ actionLabel() }}
+    </button>
+  }
+</div>

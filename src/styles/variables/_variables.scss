@@ -1,0 +1,31 @@
+/* Design tokens */
+$primary-font: 'Inter', 'Helvetica Neue', 'arial', sans-serif;
+
+/* Breakpoints */
+$break-to-tablet: 769px;
+$break-to-desktop: 1025px;
+
+/* Catalog / e-commerce */
+$color-primary: #4a80e1;
+$color-primary-hover: #3a6fd4;
+$color-primary-active: #2f5fc0;
+$color-text: #1a1a2e;
+$color-text-muted: #6b7280;
+$color-text-light: #9ca3af;
+$color-surface: #ffffff;
+$color-background: #f4f6f9;
+$color-border: #e8ecf1;
+$color-stock-in: #16a34a;
+$color-stock-in-bg: #dcfce7;
+$color-stock-out: #dc2626;
+$color-stock-out-bg: #fee2e2;
+$card-radius: 12px;
+$card-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+$card-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.1);
+$btn-radius: 8px;
+
+/* Layout — sticky stacking */
+$z-index-header: 100;
+$z-index-filter-bar: 90;
+$app-header-height-mobile: 8.5rem;
+$app-header-height-desktop: 5.25rem;

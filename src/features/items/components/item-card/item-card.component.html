@@ -1,0 +1,28 @@
+<a
+  [id]="'item-card-link-' + item().id"
+  class="item-card"
+  [class.item-card--out-of-stock]="!item().inStock"
+  [routerLink]="['/items', item().id]"
+  [attr.aria-label]="'View ' + item().name"
+>
+  <div class="item-card__media">
+    <img class="item-card__image" [src]="item().image" [alt]="item().name" loading="lazy" />
+    @if (!item().inStock) {
+      <span class="item-card__overlay-badge">Out of Stock</span>
+    }
+  </div>
+
+  <div class="item-card__body">
+    <p class="item-card__category">{{ item().category }}</p>
+    <h3 class="item-card__name">{{ item().name }}</h3>
+    <div class="item-card__footer">
+      <p class="item-card__price">{{ item().price | currency }}</p>
+      @if (item().inStock) {
+        <div class="item-card__availability">
+          <span class="item-card__dot" aria-hidden="true"></span>
+          <span class="item-card__stock">{{ item().stockCount }} left in stock</span>
+        </div>
+      }
+    </div>
+  </div>
+</a>
