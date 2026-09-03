@@ -1,17 +1,20 @@
-<app-item-filter-bar
-  [nameFilter]="nameFilter()"
-  (nameFilterChange)="nameFilter.set($event)"
-  [inStockOnly]="inStockOnly()"
-  (inStockOnlyChange)="inStockOnly.set($event)"
-  [sortBy]="sortBy()"
-  (sortByChange)="sortBy.set($event)"
-/>
+<div class="items-page__toolbar">
+  <app-item-filter-bar
+    [nameFilter]="nameFilter()"
+    (nameFilterChange)="nameFilter.set($event)"
+    [inStockOnly]="inStockOnly()"
+    (inStockOnlyChange)="inStockOnly.set($event)"
+    [sortBy]="sortBy()"
+    (sortByChange)="sortBy.set($event)"
+    [resultsSummary]="showResultsSummary() ? resultsSummary() : ''"
+  />
+</div>
 
-@if ((loadingService.isLoading() || isLoadingMore()) && loadedItems().length === 0) {
+@if ((!hasCompletedInitialLoad() || isLoadingMore()) && loadedItems().length === 0) {
   <ng-container *ngTemplateOutlet="loadingState" />
 } @else if (itemService.loadError()) {
   <ng-container *ngTemplateOutlet="errorState" />
-} @else if (loadedItems().length === 0 && !isLoadingMore()) {
+} @else if (hasCompletedInitialLoad() && loadedItems().length === 0 && !isLoadingMore()) {
   <ng-container *ngTemplateOutlet="emptyState" />
 } @else {
   <ng-container *ngTemplateOutlet="itemsGrid" />

@@ -1,6 +1,7 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, map, of, shareReplay, switchMap, take, timer } from 'rxjs';
+
 import { Item, ItemDetail } from '../models/item.model';
 import { ITEM_DETAILS } from '../data/item-details';
 import { generateItems, getTemplateId } from '../utils/generate-items';
@@ -11,6 +12,7 @@ import { ItemSortOption } from '../models/item.model';
 export type PaginatedItems = {
   items: Item[];
   hasMore: boolean;
+  totalCount: number;
 };
 
 export const ITEMS_PAGE_SIZE = 8;
@@ -21,6 +23,14 @@ export class ItemService {
   private readonly url = 'assets/items.json';
   readonly loadError = signal(false);
 
+  /**
+   * @description
+   * Loads the catalog from the JSON file and transforms it into a signal.
+   * For testing purposes, the catalog is loaded from a JSON file.
+   * In a real application, the catalog would be loaded from a backend API so in getItems and getItemById
+   * we would need to make HTTP requests to the backend API.
+   * @returns A signal containing the catalog.
+   */
   private readonly catalog$ = this.http.get<Item[]>(this.url).pipe(
     map((templates) => ({
       items: generateItems(templates),
@@ -51,6 +61,7 @@ export class ItemService {
             return {
               items: pageItems,
               hasMore: offset + limit < sorted.length,
+              totalCount: sorted.length,
             };
           }),
         ),

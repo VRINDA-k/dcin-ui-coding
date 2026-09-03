@@ -1,5 +1,10 @@
 <div class="filter-bar">
-  <h2 class="filter-bar__title">Products</h2>
+  <div class="filter-bar__heading">
+    <h2 id="products-heading" class="filter-bar__title">Products</h2>
+    @if (resultsSummary()) {
+      <p class="filter-bar__count" aria-live="polite">{{ resultsSummary() }}</p>
+    }
+  </div>
 
   <div class="filter-bar__actions">
     <div class="filter-bar__search">

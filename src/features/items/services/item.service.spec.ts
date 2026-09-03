@@ -118,6 +118,7 @@ describe('ItemService', () => {
     expect(result.items.length).toBeGreaterThan(0);
     expect(result.items.length).toBeLessThanOrEqual(ITEMS_PAGE_SIZE);
     expect(typeof result.hasMore).toBe('boolean');
+    expect(result.totalCount).toBeGreaterThan(0);
 
     jest.useRealTimers();
   });
@@ -136,6 +137,7 @@ describe('ItemService', () => {
 
     expect(result.items).toHaveLength(2);
     expect(result.hasMore).toBe(true);
+    expect(result.totalCount).toBe(48);
 
     jest.useRealTimers();
   });
@@ -156,6 +158,7 @@ describe('ItemService', () => {
 
     expect(result.items).toEqual([]);
     expect(result.hasMore).toBe(false);
+    expect(result.totalCount).toBe(0);
 
     jest.useRealTimers();
   });

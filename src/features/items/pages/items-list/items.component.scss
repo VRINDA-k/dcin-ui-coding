@@ -1,4 +1,24 @@
 @import 'mixins';
+@import 'variables';
+
+:host {
+  display: block;
+}
+
+.items-page__toolbar {
+  position: sticky;
+  top: var(--app-header-height);
+  z-index: $z-index-filter-bar;
+  margin: -1rem -1.25rem 1.25rem;
+  padding: 0 1.25rem;
+  background-color: $color-background;
+  border-bottom: 1px solid $color-border;
+
+  @include break-to-tablet {
+    margin: -2rem -2rem 1.5rem;
+    padding: 0 2rem;
+  }
+}
 
 .items-page__grid {
   display: grid;

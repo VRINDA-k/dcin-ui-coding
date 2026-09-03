@@ -5,6 +5,7 @@ import {
   HostListener,
   computed,
   inject,
+  input,
   model,
   signal,
 } from '@angular/core';
@@ -32,6 +33,7 @@ export class ItemFilterBarComponent {
   readonly nameFilter = model('');
   readonly inStockOnly = model(false);
   readonly sortBy = model<ItemSortOption>('default');
+  readonly resultsSummary = input('');
 
   protected readonly isSortOpen = signal(false);
 

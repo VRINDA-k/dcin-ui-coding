@@ -116,4 +116,16 @@ describe('ItemFilterBarComponent', () => {
     expect(element.querySelector('#sort-by-rate-filter')).toBeTruthy();
     expect(element.querySelector('#name-filter')).toBeTruthy();
   });
+
+  it('should render results summary when provided', () => {
+    const fixture = TestBed.createComponent(ItemFilterBarComponent);
+    fixture.componentRef.setInput('resultsSummary', '1–8 of 48 results');
+    fixture.detectChanges();
+    TestBed.tick();
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('.filter-bar__count')?.textContent?.trim()).toBe(
+      '1–8 of 48 results',
+    );
+  });
 });
