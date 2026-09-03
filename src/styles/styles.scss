@@ -1,0 +1,23 @@
+@import "normalize.scss/normalize";
+@import 'fonts';
+@import "mixins";
+
+/* Global CSS reset / base styles */
+body {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  background-color: #f9f9f9;
+  color: #222;
+  line-height: 1.2;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+
+  &:hover {
+    color: #007bff;
+  }
+}
+
+
