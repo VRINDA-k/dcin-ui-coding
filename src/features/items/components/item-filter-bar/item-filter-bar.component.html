@@ -27,14 +27,65 @@
       }
     </div>
 
-    <label class="filter-bar__stock" for="in-stock-only-filter">
-      <input
-        id="in-stock-only-filter"
-        type="checkbox"
-        [ngModel]="inStockOnly()"
-        (ngModelChange)="inStockOnly.set($event)"
-      />
-      In-stock only
-    </label>
+    <div class="filter-bar__filters">
+      <div class="filter-bar__sort" [class.filter-bar__sort--active]="isSortActive()">
+        <button
+          id="sort-by-rate-filter"
+          type="button"
+          class="filter-bar__sort-trigger"
+          aria-label="Sort by rate"
+          aria-haspopup="listbox"
+          [attr.aria-expanded]="isSortOpen()"
+          (click)="toggleSortMenu()"
+        >
+          <span class="filter-bar__sort-label">Sort by rate</span>
+          <span class="filter-bar__sort-value">
+            <span class="filter-bar__sort-value-prefix">Sort: </span>
+            {{ selectedSortLabel() }}
+          </span>
+          <span
+            class="filter-bar__sort-chevron"
+            [class.filter-bar__sort-chevron--open]="isSortOpen()"
+          ></span>
+        </button>
+
+        @if (isSortOpen()) {
+          <ul class="filter-bar__sort-menu" role="listbox" aria-label="Sort by rate">
+            @for (option of sortOptions; track option.value) {
+              <li role="presentation">
+                <button
+                  type="button"
+                  class="filter-bar__sort-option"
+                  role="option"
+                  [attr.aria-selected]="sortBy() === option.value"
+                  [class.filter-bar__sort-option--selected]="sortBy() === option.value"
+                  (click)="selectSort(option.value)"
+                >
+                  <span class="filter-bar__sort-option-text">
+                    <span class="filter-bar__sort-option-label">{{ option.label }}</span>
+                    <span class="filter-bar__sort-option-description">{{
+                      option.description
+                    }}</span>
+                  </span>
+                  @if (sortBy() === option.value) {
+                    <app-icon name="check" class="filter-bar__sort-option-check" />
+                  }
+                </button>
+              </li>
+            }
+          </ul>
+        }
+      </div>
+
+      <label class="filter-bar__stock" for="in-stock-only-filter">
+        <input
+          id="in-stock-only-filter"
+          type="checkbox"
+          [ngModel]="inStockOnly()"
+          (ngModelChange)="inStockOnly.set($event)"
+        />
+        In-stock only
+      </label>
+    </div>
   </div>
 </div>

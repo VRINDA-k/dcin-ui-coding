@@ -1,8 +1,19 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, map, of, shareReplay } from 'rxjs';
+import { Observable, catchError, map, of, shareReplay, switchMap, take, timer } from 'rxjs';
 import { Item, ItemDetail } from '../models/item.model';
 import { ITEM_DETAILS } from '../data/item-details';
+import { generateItems, getTemplateId } from '../utils/generate-items';
+import { filterItems } from '../utils/filter-items';
+import { sortItems } from '../utils/sort-items';
+import { ItemSortOption } from '../models/item.model';
+
+export type PaginatedItems = {
+  items: Item[];
+  hasMore: boolean;
+};
+
+export const ITEMS_PAGE_SIZE = 8;
 
 @Injectable({ providedIn: 'root' })
 export class ItemService {
@@ -10,7 +21,11 @@ export class ItemService {
   private readonly url = 'assets/items.json';
   readonly loadError = signal(false);
 
-  private readonly items$ = this.http.get<Item[]>(this.url).pipe(
+  private readonly catalog$ = this.http.get<Item[]>(this.url).pipe(
+    map((templates) => ({
+      items: generateItems(templates),
+      templateCount: templates.length,
+    })),
     catchError(() => {
       this.loadError.set(true);
       return of(null);
@@ -18,27 +33,52 @@ export class ItemService {
     shareReplay(1),
   );
 
-  public getItems(): Observable<Item[]> {
-    return this.items$.pipe(map((items) => items ?? []));
+  public getItemsPage(
+    offset: number,
+    limit: number,
+    nameQuery: string,
+    inStockOnly: boolean,
+    sortBy: ItemSortOption,
+  ): Observable<PaginatedItems> {
+    return this.catalog$.pipe(
+      switchMap((catalog) =>
+        timer(400).pipe(
+          map(() => {
+            const filtered = filterItems(catalog?.items ?? [], nameQuery, inStockOnly);
+            const sorted = sortItems(filtered, sortBy);
+            const pageItems = sorted.slice(offset, offset + limit);
+
+            return {
+              items: pageItems,
+              hasMore: offset + limit < sorted.length,
+            };
+          }),
+        ),
+      ),
+      take(1),
+    );
   }
 
   public getItemById(id: number): Observable<ItemDetail | null> {
-    return this.items$.pipe(
-      map((items) => {
-        if (!items) {
+    return this.catalog$.pipe(
+      map((catalog) => {
+        if (!catalog) {
           return null;
         }
 
-        const item = items.find((i) => i.id === id);
+        const item = catalog.items.find((entry) => entry.id === id);
         if (!item) {
           return null;
         }
 
+        const templateId = getTemplateId(item.id, catalog.templateCount);
+
         return {
           ...item,
-          details: [...(ITEM_DETAILS[id] ?? [])],
+          details: [...(ITEM_DETAILS[templateId] ?? [])],
         };
       }),
+      take(1),
     );
   }
 }

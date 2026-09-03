@@ -3,13 +3,15 @@
   (nameFilterChange)="nameFilter.set($event)"
   [inStockOnly]="inStockOnly()"
   (inStockOnlyChange)="inStockOnly.set($event)"
+  [sortBy]="sortBy()"
+  (sortByChange)="sortBy.set($event)"
 />
 
-@if (loadingService.isLoading()) {
+@if ((loadingService.isLoading() || isLoadingMore()) && loadedItems().length === 0) {
   <ng-container *ngTemplateOutlet="loadingState" />
 } @else if (itemService.loadError()) {
   <ng-container *ngTemplateOutlet="errorState" />
-} @else if (filteredItems().length === 0) {
+} @else if (loadedItems().length === 0 && !isLoadingMore()) {
   <ng-container *ngTemplateOutlet="emptyState" />
 } @else {
   <ng-container *ngTemplateOutlet="itemsGrid" />
@@ -42,8 +44,24 @@
 
 <ng-template #itemsGrid>
   <div class="items-page__grid" role="list" aria-labelledby="products-heading">
-    @for (item of filteredItems(); track item.id) {
+    @for (item of loadedItems(); track item.id) {
       <app-item-card [item]="item" />
     }
   </div>
+
+  @if (hasMore()) {
+    <div
+      class="items-page__scroll-sentinel"
+      appInfiniteScroll
+      [disabled]="isLoadingMore()"
+      (scrolled)="loadMore()"
+      aria-hidden="true"
+    ></div>
+  }
+
+  @if (isLoadingMore()) {
+    <div class="items-page__load-more" role="status" aria-label="Loading more products">
+      <app-loader variant="spinner" message="Loading more products…" />
+    </div>
+  }
 </ng-template>

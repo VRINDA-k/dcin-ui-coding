@@ -7,6 +7,7 @@ export const ICON_VIEWBOX = {
   'stock-in': '0 0 16 16',
   'stock-out': '0 0 16 16',
   'empty-box': '0 0 64 64',
+  check: '0 0 20 20',
 } as const;
 
 export type IconName = keyof typeof ICON_VIEWBOX;

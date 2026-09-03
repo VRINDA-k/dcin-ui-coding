@@ -1,3 +1,5 @@
+export type ItemSortOption = 'default' | 'rate-asc' | 'rate-desc';
+
 export type Item = {
   id: number;
   name: string;
