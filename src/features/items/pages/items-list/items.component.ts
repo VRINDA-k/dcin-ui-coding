@@ -1,4 +1,3 @@
-import { NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -43,7 +42,6 @@ type FilterCriteria = {
   selector: 'app-item-list',
   standalone: true,
   imports: [
-    NgTemplateOutlet,
     ItemFilterBarComponent,
     ItemCardComponent,
     LoaderComponent,

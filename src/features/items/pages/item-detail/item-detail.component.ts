@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { CurrencyPipe, NgTemplateOutlet } from '@angular/common';
+import { CurrencyPipe } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { map, switchMap } from 'rxjs';
 import { LoadingService } from '@core/services/loading.service';
@@ -16,7 +16,6 @@ import { IconComponent } from '@shared/components/icon/icon.component';
   standalone: true,
   imports: [
     CurrencyPipe,
-    NgTemplateOutlet,
     RouterLink,
     StockBadgeComponent,
     QuantitySelectorComponent,

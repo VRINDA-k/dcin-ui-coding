@@ -1,18 +1,6 @@
 @if (loadingService.isLoading()) {
-  <ng-container *ngTemplateOutlet="loadingState" />
-} @else if (itemService.loadError()) {
-  <ng-container *ngTemplateOutlet="errorState" />
-} @else if (item(); as i) {
-  <ng-container *ngTemplateOutlet="detailContent; context: { $implicit: i }" />
-} @else {
-  <ng-container *ngTemplateOutlet="notFoundState" />
-}
-
-<ng-template #loadingState>
   <app-loader variant="detail-skeleton" ariaLabel="Loading item details" />
-</ng-template>
-
-<ng-template #errorState>
+} @else if (itemService.loadError()) {
   <app-empty-state
     title="Unable to load item"
     description="Something went wrong while fetching product details. Please refresh the page and try again."
@@ -20,19 +8,7 @@
     actionLabel="Back to Items"
     (action)="navigateToItems()"
   />
-</ng-template>
-
-<ng-template #notFoundState>
-  <app-empty-state
-    title="Item not found"
-    description="Sorry, we couldn't find the item you're looking for. It may have been removed or the link is incorrect."
-    [showAction]="true"
-    actionLabel="Back to Items"
-    (action)="navigateToItems()"
-  />
-</ng-template>
-
-<ng-template #detailContent let-i>
+} @else if (item(); as i) {
   <div class="item-detail__card">
     <nav class="item-detail__breadcrumb" aria-label="Breadcrumb">
       <a id="item-detail-breadcrumb-home" routerLink="/">Home</a>
@@ -90,4 +66,12 @@
       </div>
     </div>
   </div>
-</ng-template>
+} @else {
+  <app-empty-state
+    title="Item not found"
+    description="Sorry, we couldn't find the item you're looking for. It may have been removed or the link is incorrect."
+    [showAction]="true"
+    actionLabel="Back to Items"
+    (action)="navigateToItems()"
+  />
+}
